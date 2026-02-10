@@ -1,0 +1,37 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{pageTitle}}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 24px; }
+        header, footer { margin: 16px 0; }
+        nav a { margin-right: 10px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background: #f7f7f7; }
+    </style>
+</head>
+<body>
+<header>
+    <h2>사내 커뮤니티</h2>
+    {{#loginUser}}
+    <div>로그인: {{name}} ({{role.label}})
+        <form method="post" action="/logout" style="display:inline-block; margin-left: 12px;">
+            <button type="submit" onclick="return confirm('로그아웃 하시겠습니까?');">로그아웃</button>
+        </form>
+    </div>
+    {{/loginUser}}
+    <nav>
+        <a href="/main">메인</a>
+        <a href="/posts">게시판</a>
+        <a href="/employees">사원 목록</a>
+        {{#isAdmin}}
+        <a href="/departments">부서 관리</a>
+        <a href="/positions">직급 관리</a>
+        <a href="/admin/users">사용자 관리</a>
+        {{/isAdmin}}
+    </nav>
+    <hr>
+</header>

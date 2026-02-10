@@ -1,0 +1,26 @@
+{{>layout/header}}
+<h1>부서 관리</h1>
+
+<form method="post" action="/departments/save">
+    <label>부서명</label>
+    <input name="name" placeholder="예: 인사">
+    <button type="submit">부서 추가</button>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>부서명</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#departments}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{name}}</td>
+        </tr>
+    {{/departments}}
+    </tbody>
+</table>
+{{>layout/footer}}

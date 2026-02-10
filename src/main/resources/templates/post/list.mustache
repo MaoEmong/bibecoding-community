@@ -1,0 +1,41 @@
+{{>layout/header}}
+<h1>게시판</h1>
+
+<form method="get" action="/posts">
+    <input type="text" name="keyword" placeholder="제목/내용/작성자 검색" value="{{keyword}}">
+    <button type="submit">검색</button>
+</form>
+
+<p>
+    <a href="/posts/save-form">글쓰기</a>
+</p>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#page.items}}
+        <tr>
+            <td>{{id}}</td>
+            <td><a href="/posts/{{id}}">{{title}}</a></td>
+            <td>{{authorName}}</td>
+            <td>{{createdAt}}</td>
+        </tr>
+    {{/page.items}}
+    </tbody>
+</table>
+
+<div>
+    {{#page.hasPrev}}<a href="/posts?page={{page.prevPage}}&size={{page.size}}">이전</a>{{/page.hasPrev}}
+    {{#page.pageNumbers}}
+        <a href="/posts?page={{.}}&size={{page.size}}">{{.}}</a>
+    {{/page.pageNumbers}}
+    {{#page.hasNext}}<a href="/posts?page={{page.nextPage}}&size={{page.size}}">다음</a>{{/page.hasNext}}
+</div>
+{{>layout/footer}}

@@ -1,0 +1,65 @@
+﻿{{>layout/header}}
+<h1>게시글 상세</h1>
+<p>ID: {{post.id}}</p>
+<p>제목: {{post.title}}</p>
+<p>작성자: {{post.authorName}} ({{post.authorEmail}})</p>
+<p>작성일: {{post.createdAt}}</p>
+<p>수정일: {{post.updatedAt}}</p>
+<hr>
+<div>{{{post.content}}}</div>
+
+{{#post.editable}}
+<p>
+    <a href="/posts/{{post.id}}/update-form">수정</a>
+    <a href="/posts">목록</a>
+</p>
+<form method="post" action="/posts/{{post.id}}/delete" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+    <button type="submit">삭제</button>
+</form>
+{{/post.editable}}
+
+{{^post.editable}}
+<p><a href="/posts">목록</a></p>
+{{/post.editable}}
+
+<hr>
+<h2>댓글</h2>
+<p>
+    정렬:
+    {{#isCreatedAscSort}}<strong>등록순</strong>{{/isCreatedAscSort}}{{^isCreatedAscSort}}<a href="/posts/{{post.id}}?commentSort=createdAsc">등록순</a>{{/isCreatedAscSort}}
+    |
+    {{#isUpdatedDescSort}}<strong>최신수정순</strong>{{/isUpdatedDescSort}}{{^isUpdatedDescSort}}<a href="/posts/{{post.id}}?commentSort=updatedDesc">최신수정순</a>{{/isUpdatedDescSort}}
+</p>
+
+{{#commentError}}
+<script>
+    alert('{{commentError}}');
+</script>
+{{/commentError}}
+
+<form method="post" action="/posts/{{post.id}}/comments/save">
+    <input type="hidden" name="commentSort" value="{{commentSort}}">
+    <textarea name="content" rows="4" cols="80" placeholder="댓글 내용을 입력하세요." required></textarea>
+    <div>
+        <button type="submit">댓글 등록</button>
+    </div>
+</form>
+
+{{#comments}}
+<div style="border: 1px solid #ddd; padding: 10px; margin: 10px 0;">
+    <p>{{content}}</p>
+    <small>작성자: {{authorName}} ({{authorEmail}}) / 작성일: {{createdAt}} / 수정일: {{updatedAt}}</small>
+    {{#editable}}
+    <p><a href="/posts/{{post.id}}/comments/{{id}}/update-form?commentSort={{commentSort}}">댓글 수정</a></p>
+    <form method="post" action="/posts/{{post.id}}/comments/{{id}}/delete" style="margin-top: 8px;" onsubmit="return confirm('댓글을 삭제하시겠습니까?');">
+        <input type="hidden" name="commentSort" value="{{commentSort}}">
+        <button type="submit">댓글 삭제</button>
+    </form>
+    {{/editable}}
+</div>
+{{/comments}}
+
+{{^comments}}
+<p>첫 댓글을 작성해 보세요.</p>
+{{/comments}}
+{{>layout/footer}}

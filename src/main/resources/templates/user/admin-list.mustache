@@ -1,0 +1,79 @@
+﻿{{>layout/header}}
+<h1>사용자/사원 관리</h1>
+
+{{#userError}}
+<script>
+    alert('{{userError}}');
+</script>
+{{/userError}}
+
+<form method="post" action="/admin/users/save">
+    <div><label>사번</label><input name="employeeNo" value="{{employeeNo}}" required></div>
+    <div><label>이름</label><input name="name" value="{{name}}" required></div>
+    <div><label>이메일</label><input name="email" value="{{email}}" required></div>
+    <div><label>비밀번호</label><input name="password" value="{{password}}" required></div>
+    <div>
+        <label>권한</label>
+        <select name="role">
+            {{#roles}}
+                <option value="{{name}}" {{#selected}}selected{{/selected}}>{{label}}</option>
+            {{/roles}}
+        </select>
+    </div>
+    <div>
+        <label>부서</label>
+        <select name="departmentId">
+            {{#departmentOptions}}
+                <option value="{{id}}">{{name}}</option>
+            {{/departmentOptions}}
+        </select>
+    </div>
+    <div>
+        <label>직급</label>
+        <select name="positionId">
+            {{#positionOptions}}
+                <option value="{{id}}">{{name}}</option>
+            {{/positionOptions}}
+        </select>
+    </div>
+    <div>
+        <label>상태</label>
+        <select name="status">
+            {{#statuses}}
+                <option value="{{name}}" {{#selected}}selected{{/selected}}>{{label}}</option>
+            {{/statuses}}
+        </select>
+    </div>
+    <div><label>입사일</label><input type="date" name="hiredAt" value="{{hiredAt}}" required></div>
+    <button type="submit" onclick="return confirm('사용자를 추가하시겠습니까?');">사용자/사원 추가</button>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>사번</th>
+        <th>이름</th>
+        <th>이메일</th>
+        <th>권한</th>
+        <th>부서</th>
+        <th>직급</th>
+        <th>상태</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#users}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{employeeNo}}</td>
+            <td>{{name}}</td>
+            <td>{{email}}</td>
+            <td>{{role.label}}</td>
+            <td>{{department.name}}</td>
+            <td>{{position.name}}</td>
+            <td>{{status.label}}</td>
+        </tr>
+    {{/users}}
+    </tbody>
+</table>
+{{>layout/footer}}

@@ -1,0 +1,30 @@
+﻿{{>layout/header}}
+<h1>게시글 수정</h1>
+<link rel="stylesheet" href="/summernote/summernote-lite.min.css">
+{{#editable}}
+<form method="post" action="/posts/{{id}}/update" onsubmit="return confirm('수정하시겠습니까?');">
+    <div><label>제목</label><input name="title" value="{{form.title}}"></div>
+    <div><label>내용</label><textarea id="contentEditor" name="content" rows="12" cols="80">{{form.content}}</textarea></div>
+    <button type="submit">수정</button>
+    <a href="/posts/{{id}}">상세</a>
+</form>
+{{/editable}}
+{{^editable}}
+<p>수정 권한이 없습니다.</p>
+<p><a href="/posts/{{id}}">상세</a></p>
+{{/editable}}
+{{#editable}}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="/summernote/summernote-lite.min.js"></script>
+<script src="/summernote/lang/summernote-ko-KR.min.js"></script>
+<script>
+    $(function () {
+        $('#contentEditor').summernote({
+            height: 320,
+            lang: 'ko-KR',
+            placeholder: '내용을 입력해 주세요.'
+        });
+    });
+</script>
+{{/editable}}
+{{>layout/footer}}

@@ -1,0 +1,15 @@
+{{>layout/header}}
+<script>
+    alert('{{message}}');
+</script>
+{{#redirectUrl}}
+<script>
+    location.href = '{{redirectUrl}}';
+</script>
+{{/redirectUrl}}
+{{^redirectUrl}}
+<script>
+    history.back();
+</script>
+{{/redirectUrl}}
+{{>layout/footer}}

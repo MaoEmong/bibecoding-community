@@ -1,0 +1,12 @@
+﻿{{>layout/header}}
+<h1>댓글 수정</h1>
+<form method="post" action="/posts/{{postId}}/comments/{{commentId}}/update" onsubmit="return confirm('수정하시겠습니까?');">
+    <input type="hidden" name="commentSort" value="{{commentSort}}">
+    <div>
+        <label>내용</label>
+        <textarea name="content" rows="6" cols="80">{{form.content}}</textarea>
+    </div>
+    <button type="submit">수정</button>
+    <a href="/posts/{{postId}}">취소</a>
+</form>
+{{>layout/footer}}

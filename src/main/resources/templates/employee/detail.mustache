@@ -1,0 +1,28 @@
+﻿{{>layout/header}}
+<h1>사원 상세</h1>
+<p>ID: {{employee.id}}</p>
+<p>사번: {{employee.employeeNo}}</p>
+<p>이름: {{employee.name}}</p>
+<p>이메일: {{employee.email}}</p>
+<p>부서: {{employee.departmentName}}</p>
+<p>직급: {{employee.positionName}}</p>
+<p>상태: {{employee.status.label}}</p>
+<p>입사일: {{employee.hiredAt}}</p>
+
+{{#isAdmin}}
+<p>
+    <a href="/employees/{{employee.id}}/update-form">수정</a>
+    <a href="/employees">목록</a>
+</p>
+
+<form method="post" action="/employees/{{employee.id}}/delete" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+    <button type="submit">삭제</button>
+</form>
+{{/isAdmin}}
+
+{{^isAdmin}}
+<p>
+    <a href="/employees">목록</a>
+</p>
+{{/isAdmin}}
+{{>layout/footer}}

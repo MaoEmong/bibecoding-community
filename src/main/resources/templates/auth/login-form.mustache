@@ -1,0 +1,15 @@
+﻿{{>layout/header}}
+<h1>로그인</h1>
+<form method="post" action="/login">
+    <div>
+        <label>이메일</label>
+        <input type="email" name="email" value="ssar@nate.com">
+    </div>
+    <div>
+        <label>비밀번호</label>
+        <input type="password" name="password" value="1234">
+    </div>
+    <button type="submit">로그인</button>
+</form>
+<p>관리자 예시: ssar@nate.com / 1234</p>
+{{>layout/footer}}

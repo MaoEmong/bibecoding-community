@@ -1,0 +1,26 @@
+{{>layout/header}}
+<h1>직급 관리</h1>
+
+<form method="post" action="/positions/save">
+    <label>직급명</label>
+    <input name="name" placeholder="예: 대리">
+    <button type="submit">직급 추가</button>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>직급명</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#positions}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{name}}</td>
+        </tr>
+    {{/positions}}
+    </tbody>
+</table>
+{{>layout/footer}}

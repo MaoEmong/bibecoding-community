@@ -1,0 +1,22 @@
+﻿{{>layout/header}}
+<h1>게시글 작성</h1>
+<link rel="stylesheet" href="/summernote/summernote-lite.min.css">
+<form method="post" action="/posts/save">
+    <div><label>제목</label><input name="title"></div>
+    <div><label>내용</label><textarea id="contentEditor" name="content" rows="12" cols="80"></textarea></div>
+    <button type="submit">저장</button>
+    <a href="/posts">목록</a>
+</form>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="/summernote/summernote-lite.min.js"></script>
+<script src="/summernote/lang/summernote-ko-KR.min.js"></script>
+<script>
+    $(function () {
+        $('#contentEditor').summernote({
+            height: 320,
+            lang: 'ko-KR',
+            placeholder: '내용을 입력해 주세요.'
+        });
+    });
+</script>
+{{>layout/footer}}

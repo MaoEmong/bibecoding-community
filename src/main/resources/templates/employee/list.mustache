@@ -1,0 +1,72 @@
+﻿{{>layout/header}}
+<h1>사원 목록</h1>
+
+<form method="get" action="/employees">
+    <input type="text" name="employeeNo" placeholder="사번" value="{{employeeNo}}">
+    <input type="text" name="name" placeholder="이름" value="{{name}}">
+
+    <select name="departmentId">
+        <option value="">전체 부서</option>
+        {{#departmentOptions}}
+            <option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
+        {{/departmentOptions}}
+    </select>
+
+    <select name="positionId">
+        <option value="">전체 직급</option>
+        {{#positionOptions}}
+            <option value="{{id}}" {{#selected}}selected{{/selected}}>{{name}}</option>
+        {{/positionOptions}}
+    </select>
+
+    <select name="status">
+        <option value="">전체 상태</option>
+        {{#statuses}}
+            <option value="{{name}}">{{label}}</option>
+        {{/statuses}}
+    </select>
+    <button type="submit">검색</button>
+</form>
+
+{{#isAdmin}}
+<p>
+    <a href="/admin/users">사용자 관리</a>
+    <a href="/departments">부서 관리</a>
+    <a href="/positions">직급 관리</a>
+</p>
+{{/isAdmin}}
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>사번</th>
+        <th>이름</th>
+        <th>부서</th>
+        <th>직급</th>
+        <th>상태</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#page.items}}
+        <tr>
+            <td>{{id}}</td>
+            <td><a href="/employees/{{id}}">{{employeeNo}}</a></td>
+            <td>{{name}}</td>
+            <td>{{departmentName}}</td>
+            <td>{{positionName}}</td>
+            <td>{{status.label}}</td>
+        </tr>
+    {{/page.items}}
+    </tbody>
+</table>
+
+<div>
+    {{#page.hasPrev}}<a href="/employees?page={{page.prevPage}}&size={{page.size}}">이전</a>{{/page.hasPrev}}
+    {{#page.pageNumbers}}
+        <a href="/employees?page={{.}}&size={{page.size}}">{{.}}</a>
+    {{/page.pageNumbers}}
+    {{#page.hasNext}}<a href="/employees?page={{page.nextPage}}&size={{page.size}}">다음</a>{{/page.hasNext}}
+</div>
+{{>layout/footer}}
+
